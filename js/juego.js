@@ -118,7 +118,7 @@ async function iniciarJuego(dificultad) {
     if (cached) {
       todas = JSON.parse(cached);
     } else {
-      const res = await fetch(url);
+      const res = await fetchConReintentos(url);
       todas = await res.json();
       sessionStorage.setItem('preguntas', JSON.stringify(todas));
     }

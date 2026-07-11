@@ -24,8 +24,7 @@ async function loadDevocional() {
       lista = JSON.parse(cached);
     } else {
       const url = DEV_BASE_URL + '/data/devocionales.json';
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const res = await fetchConReintentos(url);
       lista = await res.json();
       sessionStorage.setItem('devocionales', JSON.stringify(lista));
     }

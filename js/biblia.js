@@ -83,22 +83,22 @@ async function cargarBiblia(version) {
 
   const localUrl = BASE_URL + '/bibles/' + version.archivo;
   try {
-    const local = await fetch(localUrl);
-    if (local.ok) {
-      const data = await local.json();
-      guardarBibliaCache(cacheKey, data);
-      return data;
-    }
+    const local = await fetchConReintentos(localUrl);
+    const data = await local.json();
+    guardarBibliaCache(cacheKey, data);
+    return data;
   } catch(e) {
     // Sigue con descarga remota si esta version la tiene.
   }
 
   if (version.url) {
-    const remote = await fetch(version.url);
-    if (remote.ok) {
+    try {
+      const remote = await fetchConReintentos(version.url);
       const data = await remote.json();
       guardarBibliaCache(cacheKey, data);
       return data;
+    } catch(e) {
+      // Cae al mensaje de error de abajo.
     }
   }
 
