@@ -29,11 +29,39 @@
     </div>
     <div id="toolbarRight">
       <button id="btnToolbarRadio" class="toolbar-btn" onclick="navTo('radio', null)" title="Radio">
-        <span id="toolbarRadioIcon" class="toolbar-radio-mask radio-off" aria-hidden="true"></span>
+        <svg id="iconRadioOff" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 9L12.2 2.8l1.6 0.9L10.9 9z"/>
+          <path d="M4.5 9h15a1.3 1.3 0 0 1 1.3 1.3v8.4A1.3 1.3 0 0 1 19.5 20h-15a1.3 1.3 0 0 1-1.3-1.3v-8.4A1.3 1.3 0 0 1 4.5 9z"/>
+          <path fill-rule="evenodd" d="M10.7 14a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0zm-1.1 0a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0z"/>
+          <rect x="13" y="12.4" width="6" height="1.4" rx="0.7"/>
+          <rect x="13" y="15.4" width="6" height="1.4" rx="0.7"/>
+        </svg>
+        <svg id="iconRadioOn" viewBox="0 0 24 24" class="hidden" aria-hidden="true">
+          <path d="M9 9L12.2 2.8l1.6 0.9L10.9 9z"/>
+          <path d="M4.5 9h15a1.3 1.3 0 0 1 1.3 1.3v8.4A1.3 1.3 0 0 1 19.5 20h-15a1.3 1.3 0 0 1-1.3-1.3v-8.4A1.3 1.3 0 0 1 4.5 9z"/>
+          <path fill-rule="evenodd" d="M10.7 14a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0zm-1.1 0a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0z"/>
+          <rect x="13" y="12.4" width="6" height="1.4" rx="0.7"/>
+          <rect x="13" y="15.4" width="6" height="1.4" rx="0.7"/>
+          <path d="M13.3 3.2a4.3 4.3 0 0 1 0 6.2" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M15.6 1a7.6 7.6 0 0 1 0 10.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
       </button>
       <button id="btnVersion" class="btn-version hidden" onclick="mostrarSelectorVersion()"></button>
       <button id="btnDarkMode" class="toolbar-btn" onclick="toggleDarkMode()">
-        <img id="iconDark" src="assets/img/noche.png" style="width:22px;height:22px"/>
+        <svg id="iconMoon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg id="iconSun" viewBox="0 0 24 24" class="hidden" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.3"/>
+          <rect x="11" y="0.5" width="2" height="3.2" rx="1"/>
+          <rect x="11" y="20.3" width="2" height="3.2" rx="1"/>
+          <rect x="0.5" y="11" width="3.2" height="2" rx="1"/>
+          <rect x="20.3" y="11" width="3.2" height="2" rx="1"/>
+          <rect x="11" y="0.5" width="2" height="3.2" rx="1" transform="rotate(45 12 12)"/>
+          <rect x="11" y="0.5" width="2" height="3.2" rx="1" transform="rotate(135 12 12)"/>
+          <rect x="11" y="0.5" width="2" height="3.2" rx="1" transform="rotate(225 12 12)"/>
+          <rect x="11" y="0.5" width="2" height="3.2" rx="1" transform="rotate(315 12 12)"/>
+        </svg>
       </button>
       <button id="btnToolbarMenu" class="toolbar-btn toolbar-menu-btn" onclick="toggleToolbarMenu(event)" title="Menu">
         <svg viewBox="0 0 24 24"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
@@ -42,7 +70,6 @@
     <div id="toolbarMenu" class="toolbar-menu hidden">
       <button onclick="abrirPeticionesDesdeMenu()">Peticiones</button>
       <button onclick="mostrarAcercaCCR()">Acerca de CCR</button>
-      <button onclick="mostrarPrivacidad()">Privacidad</button>
       <button onclick="compartirApp()">Compartir app</button>
       <button onclick="mostrarConfiguracion()">Configuracion</button>
     </div>
@@ -146,10 +173,6 @@
           <div class="libro-item" data-libro-id="65"><span>Judas</span></div>
           <div class="libro-item" data-libro-id="66"><span>Apocalipsis</span></div>
         </div>
-          <div class="ccr-intro">
-            <h1>Santa Biblia — CCR</h1>
-            <p>Lee la Palabra de Dios en varias versiones en español: Reina Valera 1960, Reina Valera 2015, Nueva Versión Internacional, Nueva Traducción Viviente, La Biblia de las Américas y más. Esta app es de la iglesia <strong>Centro Cristiano de Restauración</strong>, en Cartagena de Indias, Colombia. Elige un libro del Antiguo o Nuevo Testamento para comenzar a leer.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -370,6 +393,7 @@
           <blockquote>"Lámpara es a mis pies tu palabra, y lumbrera a mi camino."</blockquote>
           <p class="acerca-ref">Salmos 119:105</p>
           <div class="acerca-short-line"></div>
+          <button class="acerca-link-btn" onclick="mostrarPrivacidad()">Política de privacidad</button>
           <p class="acerca-version">Versión 1.0</p>
         </div>
       </div>

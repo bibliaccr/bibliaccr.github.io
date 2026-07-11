@@ -98,8 +98,8 @@ function ensureGrupoActions() {
 }
 
 function updateDarkIcon() {
-  const img = document.getElementById('iconDark');
-  img.src = state.darkMode ? 'assets/img/noche.png' : 'assets/img/dia.png';
+  document.getElementById('iconMoon')?.classList.toggle('hidden', !state.darkMode);
+  document.getElementById('iconSun')?.classList.toggle('hidden', state.darkMode);
 }
 
 function navTo(tab, btn, options = {}) {
@@ -217,6 +217,8 @@ function goBackInternal() {
         : (window.currentLibroAbbrev || window.currentLibroNombre || '');
       document.getElementById('btnVersion').classList.remove('hidden');
       document.getElementById('bottomNav').style.display = 'none';
+    } else if (prevId === 'screenAcerca') {
+      document.getElementById('toolbarTitle').textContent = 'Acerca de CCR';
     }
   }
 
@@ -248,7 +250,7 @@ function mostrarAcercaCCR() {
 
 function mostrarPrivacidad() {
   closeToolbarMenu();
-  navTo('privacidad', null);
+  pushScreen('screenPrivacidad', 'Privacidad');
 }
 
 async function compartirApp() {

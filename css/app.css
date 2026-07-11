@@ -70,24 +70,7 @@ body.root-screen #toolbarTitle { order: 1; flex: 0 0 auto; color: #fff; }
 body:not(.root-screen) #toolbarLogo { display: none; }
 .toolbar-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .toolbar-btn svg { width: 24px; height: 24px; fill: #fff; }
-.toolbar-btn img { filter: brightness(10); }
 .toolbar-icon-img { width: 25px; height: 25px; object-fit: contain; }
-.toolbar-radio-mask {
-  width: 28px;
-  height: 28px;
-  display: block;
-  background: #fff;
-  -webkit-mask: center / contain no-repeat;
-  mask: center / contain no-repeat;
-}
-.toolbar-radio-mask.radio-off {
-  -webkit-mask-image: url("../assets/img/ic_radio.png");
-  mask-image: url("../assets/img/ic_radio.png");
-}
-.toolbar-radio-mask.radio-on {
-  -webkit-mask-image: url("../assets/img/ic_radioon.png");
-  mask-image: url("../assets/img/ic_radioon.png");
-}
 #toolbarRight { display: flex; align-items: center; gap: 4px; }
 .btn-version { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-family: 'Lora', serif; }
 .toolbar-menu {
@@ -170,21 +153,6 @@ body:not(.root-screen) #toolbarLogo { display: none; }
 /* ══════════════════════════════════════════════════════
    BIBLIA
 ══════════════════════════════════════════════════════ */
-.ccr-intro {
-  padding: 16px 16px 4px;
-}
-.ccr-intro h1 {
-  font-family: var(--font-serif, 'Lora', serif);
-  font-size: 1.3rem;
-  margin: 0 0 8px;
-  color: var(--text);
-}
-.ccr-intro p {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: var(--text2);
-  margin: 0;
-}
 .bible-search-wrap {
   position: sticky;
   top: 0;
@@ -571,6 +539,7 @@ body.light .libro-item:active { background: #d7f1fb; }
 .juego-input:focus { border-color: var(--primary); background: #fff; }
 .juego-btn { width: 100%; min-height: 54px; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: 'Lora', Georgia, serif; letter-spacing: .5px; transition: background .2s; text-transform: uppercase; }
 .juego-btn:active { background: var(--primary-light); }
+.juego-btn:disabled { opacity: .6; cursor: not-allowed; }
 .juego-btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
 .dificultad-btns { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .btn-dif { width: 100%; height: 50px; object-fit: fill; cursor: pointer; transition: transform .15s; }
@@ -739,6 +708,19 @@ body.dark .ranking-full-row { color: var(--text); }
 }
 .acerca-ref { color: #99ccff; font-size: 14px !important; font-weight: 800; margin-bottom: 24px !important; }
 .acerca-version { color: rgba(255,255,255,.5); font-size: 13px !important; letter-spacing: 1px; }
+.acerca-link-btn {
+  display: block;
+  margin: 0 auto 18px;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.45);
+  color: #cce8ff;
+  font: 700 13px 'Lora', Georgia, serif;
+  letter-spacing: .5px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.acerca-link-btn:active { background: rgba(255,255,255,.12); }
 
 .privacidad-wrap { position: relative; min-height: 100%; overflow: hidden; }
 .privacidad-content {

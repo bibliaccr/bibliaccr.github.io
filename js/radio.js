@@ -120,8 +120,6 @@ function updatePlayPauseBtn(playing) {
 }
 
 function updateToolbarRadioIcon() {
-  const icon = document.getElementById('toolbarRadioIcon');
-  if (!icon) return;
-  icon.classList.toggle('radio-on', radioPlaying);
-  icon.classList.toggle('radio-off', !radioPlaying);
+  document.getElementById('iconRadioOff')?.classList.toggle('hidden', radioPlaying);
+  document.getElementById('iconRadioOn')?.classList.toggle('hidden', !radioPlaying);
 }

@@ -40,9 +40,17 @@ async function verificarRegistro() {
 }
 
 async function registrarJugador() {
+  // Evita registros duplicados si el usuario toca "Registrarse" varias veces
+  // mientras la petición anterior todavía está en curso.
+  if (juegoState.registrando) return;
+
   const nombre = document.getElementById('regNombre').value.trim();
   const apellido = document.getElementById('regApellido').value.trim();
   if (!nombre || !apellido) { alert('Por favor completa los campos'); return; }
+
+  juegoState.registrando = true;
+  const btn = document.querySelector('#panelRegistro .juego-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Registrando…'; }
 
   const id = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString();
 
@@ -69,6 +77,9 @@ async function registrarJugador() {
     juegoState.jugadorNombre = jugador.nombre;
     document.getElementById('saludoJuego').textContent = `¡Hola, ${nombre}!`;
     showJuegoPanel('panelDificultad');
+  } finally {
+    juegoState.registrando = false;
+    if (btn) { btn.disabled = false; btn.textContent = 'Registrarse'; }
   }
 }
 
