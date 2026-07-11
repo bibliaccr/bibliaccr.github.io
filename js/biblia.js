@@ -68,11 +68,12 @@ async function loadVersion(versionId, options = {}) {
     }
   } catch(e) {
     document.getElementById('bibleLoading').classList.add('hidden');
-    document.getElementById('listaAntiguo').innerHTML =
-      `<div class="empty-message">
+    const mensaje = `<div class="empty-message">
         No se pudo cargar ${escapeHtml(version.nombre)}.<br>
         Agrega el archivo <strong>bibles/${escapeHtml(version.archivo)}</strong> o revisa la conexion.
       </div>`;
+    document.getElementById('listaAntiguo').innerHTML = mensaje;
+    document.getElementById('listaNuevo').innerHTML = '';
   }
 }
 
@@ -549,13 +550,6 @@ function normalizeBibleText(text) {
     .replace(/\s+/g, ' ')
     .toLowerCase()
     .trim();
-}
-
-function switchTab(btn, tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById(tab === 'antiguo' ? 'tabAntiguo' : 'tabNuevo').classList.add('active');
 }
 
 function mostrarSelectorVersion() {
