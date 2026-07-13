@@ -34,11 +34,10 @@ const VERSIONES = [
   { id: 'PESHITTA', nombre: 'Biblia Peshitta', archivo: 'psh.json', url: 'https://github.com/leiderlico/bibliasccr/releases/download/v1/psh.json', hidden: true },
 ];
 
-const BASE_URL = (() => {
-  const loc = window.location.href;
-  if (loc.includes('github.io')) return loc.split('/').slice(0, 4).join('/');
-  return '.';
-})();
+// BASE_URL ahora viene de SITE_BASE_URL (definida en data.js), que se
+// calcula de forma robusta a partir de location.pathname, sin romperse
+// con el hash de la pestaña activa (#biblia, #trivia) ni con query strings.
+const BASE_URL = SITE_BASE_URL;
 
 async function initBiblia() {
   await loadVersion('RVA1960', { isInitial: true });

@@ -272,10 +272,14 @@ function shuffleArr(arr) {
   return a;
 }
 
+// getAppBaseUrl() ahora devuelve SITE_BASE_URL (definida en data.js), que se
+// calcula de forma robusta a partir de location.pathname, sin romperse
+// con el hash de la pestaña activa (#biblia, #trivia) ni con query strings.
+// Esto es lo que arregla que, tras el refresh que hace "Registrarse" en la
+// trivia (estando ya en la URL con "#juego" o similar), las preguntas
+// dejaran de cargar.
 function getAppBaseUrl() {
-  const loc = window.location.href;
-  if (loc.includes('github.io')) return loc.split('/').slice(0, 4).join('/');
-  return '.';
+  return SITE_BASE_URL;
 }
 
 function firstName(nombre) {

@@ -1,10 +1,9 @@
 let devocionalLoaded = false;
 
-const DEV_BASE_URL = (() => {
-  const loc = window.location.href;
-  if (loc.includes('github.io')) return loc.split('/').slice(0, 4).join('/');
-  return '.';
-})();
+// DEV_BASE_URL ahora viene de SITE_BASE_URL (definida en data.js), que se
+// calcula de forma robusta a partir de location.pathname, sin romperse
+// con el hash de la pestaña activa (#biblia, #trivia) ni con query strings.
+const DEV_BASE_URL = SITE_BASE_URL;
 
 function updatePergaminoImage() {
   const img = document.getElementById('imgPergamino');
