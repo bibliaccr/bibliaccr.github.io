@@ -98,6 +98,29 @@ body:not(.root-screen) #toolbarLogo { display: none; }
 }
 .toolbar-menu button:active { background: rgba(255,255,255,.08); }
 
+/* ── Toolbar de seleccion de versiculos (se sobrepone al toolbar principal) ── */
+.verse-select-toolbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: var(--toolbar-h);
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.verse-select-toolbar.hidden { display: none; }
+.verse-select-count {
+  color: #fff;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding-left: 4px;
+}
+.verse-select-spacer { flex: 1; }
+
 /* ── App body ── */
 #app { background: var(--bg); flex-direction: column; }
 #mainContent { flex: 1; overflow: hidden; position: relative; padding-bottom: var(--nav-h); }
@@ -323,47 +346,56 @@ body.light .libro-item:active { background: #d7f1fb; }
   font-weight: 800;
   text-align: center;
 }
-.verse-selection-bar {
-  position: sticky;
-  top: 0;
-  z-index: 6;
+.verse-color-float {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--nav-h) + 14px);
+  transform: translate(-50%, 14px);
+  z-index: 45;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  align-items: center;
+  gap: 9px;
+  padding: 9px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease, visibility .22s;
 }
-.verse-actions-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 7px;
-}
-.verse-actions-row button {
-  flex: 1;
-  min-height: 38px;
-  border: 1px solid var(--primary);
-  border-radius: 8px;
-  background: var(--primary);
-  color: #fff;
-  font: 800 12px 'Lora', Georgia, serif;
-  cursor: pointer;
-}
-.verse-actions-row button:last-child {
-  background: transparent;
-  color: var(--primary);
-}
-.verse-colors-row {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 7px;
+.verse-color-float.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
 }
 .verse-color-chip {
-  min-height: 30px;
+  width: 30px;
+  height: 30px;
+  min-height: 0;
   border: 1px solid rgba(255,255,255,.26);
   border-radius: 999px;
   background: var(--chip);
   box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.verse-color-clear {
+  width: 32px;
+  height: 32px;
+  min-height: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 17px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
 .versiculo-item { padding: 10px 20px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; cursor: pointer; transition: background .15s; }
 .versiculo-item:active { background: var(--surface2); }

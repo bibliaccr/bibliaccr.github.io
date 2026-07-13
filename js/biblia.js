@@ -7,6 +7,7 @@ let selectedVerses = new Set();
 let bibleSearchTimer = null;
 let bibleSuggestions = [];
 let pendingVerseHighlight = null;
+let paletteHideTimer = null;
 window.currentLibroNombre = '';
 window.currentLibroAbbrev = '';
 window.currentCapitulo = null;
@@ -40,6 +41,7 @@ const VERSIONES = [
 const BASE_URL = SITE_BASE_URL;
 
 async function initBiblia() {
+  ensureVerseColorFloat();
   await loadVersion('RVA1960', { isInitial: true });
 }
 
@@ -196,21 +198,7 @@ function renderVersiculos(num) {
   chapterTitle.textContent = `${currentLibro.nombre} ${num}`;
   lista.appendChild(chapterTitle);
 
-  const tools = document.createElement('div');
-  tools.id = 'verseSelectionBar';
-  tools.className = 'verse-selection-bar hidden';
-  tools.innerHTML = `
-    <div class="verse-actions-row">
-      <button onclick="listenSelectedVerses()">Escuchar</button>
-      <button onclick="shareSelectedVerses()">Compartir</button>
-      <button onclick="removeSelectedHighlights()">Borrar</button>
-      <button onclick="clearVerseSelection()">Cancelar</button>
-    </div>
-    <div class="verse-colors-row">
-      ${HIGHLIGHT_COLORS.map(color => `<button class="verse-color-chip" style="--chip:${color}" onclick="applyHighlightColor('${color}')" title="Resaltar"></button>`).join('')}
-    </div>
-  `;
-  lista.appendChild(tools);
+  ensureVerseColorFloat();
 
   const videosSlot = document.createElement('div');
   videosSlot.id = 'chapterVideosSlot';
@@ -273,6 +261,7 @@ function bindVerseSelection(el, verseNumber) {
 
 function toggleVerseSelection(verseNumber, el) {
   const key = Number(verseNumber);
+  const wasEmpty = selectedVerses.size === 0;
   if (selectedVerses.has(key)) {
     selectedVerses.delete(key);
     el.classList.remove('selected');
@@ -281,12 +270,46 @@ function toggleVerseSelection(verseNumber, el) {
     el.classList.add('selected');
   }
   updateVerseSelectionBar();
+  if (wasEmpty && selectedVerses.size > 0) {
+    showColorPaletteTemporarily();
+  }
 }
 
 function updateVerseSelectionBar() {
-  const bar = document.getElementById('verseSelectionBar');
-  if (!bar) return;
-  bar.classList.toggle('hidden', selectedVerses.size === 0);
+  const hasSelection = selectedVerses.size > 0;
+  const overlay = document.getElementById('verseSelectToolbar');
+  if (overlay) overlay.classList.toggle('hidden', !hasSelection);
+
+  const count = document.getElementById('verseSelectCount');
+  if (count) count.textContent = String(selectedVerses.size);
+
+  if (!hasSelection) hideColorPalette();
+}
+
+function ensureVerseColorFloat() {
+  const float = document.getElementById('verseColorFloat');
+  if (!float || float.dataset.built) return;
+  float.dataset.built = '1';
+  float.innerHTML = `
+    ${HIGHLIGHT_COLORS.map(color => `<button class="verse-color-chip" style="--chip:${color}" onclick="applyHighlightColor('${color}')" title="Resaltar"></button>`).join('')}
+    <button class="verse-color-clear" onclick="removeSelectedHighlights()" title="Quitar resaltado">×</button>
+  `;
+}
+
+function showColorPaletteTemporarily() {
+  ensureVerseColorFloat();
+  const float = document.getElementById('verseColorFloat');
+  if (!float) return;
+  float.classList.add('show');
+  clearTimeout(paletteHideTimer);
+  paletteHideTimer = setTimeout(hideColorPalette, 5000);
+}
+
+function hideColorPalette() {
+  clearTimeout(paletteHideTimer);
+  paletteHideTimer = null;
+  const float = document.getElementById('verseColorFloat');
+  if (float) float.classList.remove('show');
 }
 
 function getSelectedVerseText() {
